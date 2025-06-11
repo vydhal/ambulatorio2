@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registrar Medicação</title>
+  <style>
+    body { font-family: sans-serif; }
+    label { display: block; margin-bottom: 5px; }
+    select, input[type="text"] { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
+    button { padding: 10px 15px; margin-right: 10px; cursor: pointer; }
+  </style>
+  <script>
+    function onRegistrar() {
+      var animalId = document.getElementById('animalId').value;
+      var medicacao = document.getElementById('medicacao').value;
+      var dose = document.getElementById('dose').value;
+      var via = document.getElementById('via').value;
+      google.script.run.withSuccessHandler(fecharDialogo).registrarMedicacaoDoFormulario(animalId, medicacao, dose, via);
+    }
+
+    function fecharDialogo() {
+      google.script.host.close();
+    }
+  </script>
+</head>
+<body>
+  <h2>Registrar Medicação</h2>
+  <input type="hidden" id="animalId" value="<?= animalId ?>">
+  <label for="medicacao">Medicação:</label>
+  <select id="medicacao">
+    <? for (var i = 0; i < listaMedicacoes.length; i++) { ?>
+      <option value="<?= listaMedicacoes[i] ?>"><?= listaMedicacoes[i] ?></option>
+    <? } ?>
+  </select><br>
+  <label for="dose">Dose:</label>
+  <input type="text" id="dose"><br>
+  <label for="via">Via de Administração:</label>
+  <input type="text" id="via"><br>
+  <button onclick="onRegistrar()">Registrar</button>
+  <button onclick="fecharDialogo()">Cancelar</button>
+</body>
+</html>
